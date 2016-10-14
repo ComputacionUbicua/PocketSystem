@@ -24,3 +24,4 @@ class configureView(QWidget, Ui_Dialog):
 
     def setMain(self, view):
         self.main = view
+
