@@ -3,7 +3,6 @@ import socket
 import threading
 from ShowRecordView import ShowRecordView
 from StartRecordView import StartRecordView
-from ConfigureSensorView import ConfigureSensorView
 
 
 class UdpView():
@@ -11,20 +10,14 @@ class UdpView():
     def __init__(self):
         self.client = socket.socket(socket.AF_INET,
                               socket.SOCK_DGRAM)
-        self.host = "192.168.1.40"
-        self.port = 12345
+        self.host = "192.168.1.40" #ip del external system
+        self.port = 12345 #puerto del external system
         self.lost = False
         self.client.connect((self.host, self.port))
-        # UDP_IP = "192.168.1.52"
-        # UDP_PORT = 5005
-        # self.callback = callback
-        # self.sock = socket.socket(socket.AF_INET,
-        #                       socket.SOCK_DGRAM)
-        # self.connect()
         self.s = socket.socket()         # Create a socket object
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.s.bind(("192.168.1.41", 12346))
+        self.s.bind(("192.168.1.41", 12346)) #nuestra ip y nuestro puerto
         self.thread = threading.Thread(target=self.listener)
         self.thread.start()
 
@@ -50,8 +43,6 @@ class UdpView():
             self.setShowing = view.startStop
         elif view.__class__ == StartRecordView:
             self.startStop = view.startRecord
-        elif view.__class__ == ConfigureSensorView:
-            self.recordViewCallback = view.callBack
 
     def send(self, message):
         try:
@@ -66,7 +57,6 @@ class UdpView():
         while self.work:
             data, addr = self.s.recvfrom(1024)
             if data.split(" ")[0] == "RecordView":
-                print " show "
                 self.setShowing(data.split(" ")[1] == "True")
             elif data.split(" ")[0] == "Record":
                 self.startStop(data.split(" ")[1] == "True")

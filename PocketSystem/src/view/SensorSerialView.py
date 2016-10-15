@@ -20,12 +20,12 @@ class SensorSerialView():
         # value = self.sensor.readline()
 
         value = self.sensor.read(1)
-        while value != '+':
+        while value != '+': #caracter de inicio
             value = self.sensor.read(1)
         sensorValue = []
         value = self.sensor.read(1)
-        while value != '/':
-            if value != '-':
+        while value != '/': #caracter de fin
+            if value != '-': #caracter de separacion
                 sensorValue.append(value)
             else:
                 values.append(sensorValue)

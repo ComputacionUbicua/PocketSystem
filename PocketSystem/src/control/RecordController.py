@@ -10,7 +10,6 @@ class RecordController():
         self.frecuency = 30.0
         self.a = 0
         self.sensorView = sensorView
-        self.filter = Filter.filter()
         print 1.0 / self.frecuency
 
     def stopRecord(self):
@@ -19,8 +18,6 @@ class RecordController():
     def setFrecuency(self, frecuency):
         self.frecuency = frecuency
 
-    def setFilter(self, filter):
-        self.filter = filter
 
     def setView(self, view):
         self.showRecordView = view

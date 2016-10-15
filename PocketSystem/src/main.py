@@ -4,7 +4,6 @@ from model.RecordFactory import RecordFactory
 from view.ConfigureSensorView import ConfigureSensorView
 from view.SensorView import SensorView
 from view.ShowRecordView import ShowRecordView
-from control.Umbral import Umbral
 from view.UdpServerView import UdpView
 from view.SensorSerialView import SensorSerialView
 from view.StartRecordView import StartRecordView
@@ -32,7 +31,6 @@ class main():
         record = recordFactory.getRecord(0)
 
         recordController = RecordController(recordFactory, sensorView)
-        recordController.setFilter(Umbral(100))
         recordController.setView(showRecordView)
         showRecordController = ShowRecordController(recordFactory, showRecordView)
         configureSensorView = ConfigureSensorView(recordController)
